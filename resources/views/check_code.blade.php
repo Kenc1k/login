@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Check user</title>
+    <title>Check User</title>
     <style>
         /* Global styles */
         body {
@@ -74,9 +74,14 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('check.code') }}" method="POST">
+                <!-- Display error message -->
+                @if(session('error'))
+                    <div style="color: red;">{{ session('error') }}</div>
+                @endif
+                
+                <form action="{{ route('verify') }}" method="POST">
                     @csrf
-                    <input type="text" name="code" placeholder="Enter the code we have sent to you">
+                    <input type="text" name="number" placeholder="Enter the code we have sent to you">
                     <input type="submit" value="Submit">
                 </form>
             </div>

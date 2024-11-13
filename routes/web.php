@@ -22,4 +22,5 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/message' , [TestController::class , 'create'])->name('send.message');
 Route::get('/check_code' , [CheckCodeController::class , 'index'])->name('check.code');
+Route::post('/verify' , [CheckCodeController::class, 'check_code'])->name('verify');
 require __DIR__.'/auth.php';

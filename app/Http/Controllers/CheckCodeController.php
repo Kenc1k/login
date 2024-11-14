@@ -34,4 +34,6 @@ class CheckCodeController extends Controller
             return redirect()->route('check.code')->with('error', 'Invalid code');
         }
     }
+
+        
 }

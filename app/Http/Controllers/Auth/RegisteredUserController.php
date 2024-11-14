@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,13 +36,13 @@ class RegisteredUserController extends Controller
         // dd($request->all());
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'phone' => ['required', 'string', 'lowercase' , 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        // dd($request->all());
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
 
@@ -51,10 +52,24 @@ class RegisteredUserController extends Controller
 
         $number = rand(1000, 10000);
 
-        Store::create(['user_id'=>Auth::user()->id,'number'=>$number]);
+        $token = "hech narsa baribir ishlamadi";
 
-        TestController::get_code(Auth::user()->id,[$number]);
+        $data = [
+            'mobile_phone' =>$user->phone,
+            'message' => 'Test uchun tasdiqlash codi: ' .   $code,
+            'from' =>4546,
+            'call_back' => 'http://127.0.0.1:3232/dashboard',
+        ];
+        
+        $response = Http::withToken($token)->post('notify.eskis.uz/api/message/sms/send' , $data);
+
+
+        // Store::create(['user_id'=>Auth::user()->id,'number'=>$number]);
+
+        // TestController::get_code(Auth::user()->id,[$number]);
 
         return redirect(route('check.code', absolute: false));
     }
+
+
 }

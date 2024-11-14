@@ -51,7 +51,6 @@
     <div class="container">
         <h1>Welcome to Our Website!</h1>
         <p>We're glad to have you here. Please log in or register to continue.</p>
-        
         <div class="button-group">
             @if (Route::has('login'))
                 @auth

@@ -14,8 +14,10 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                        <a href="{{route('send.message')}}" class="btn btn-primary">Send</a>
                     </x-nav-link>
+                </div>
+                <div class="mt-5">
+                    <a href="{{route('test.cars')}}" class="btn btn-primary m-5" align="center">Sent cars</a>
                 </div>
             </div>
 

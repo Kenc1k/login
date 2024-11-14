@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CarStore;
 use App\Mail\Iskandar;
+use App\Models\Car;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Process;
 use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 
 class TestController extends Controller
@@ -72,5 +75,11 @@ class TestController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function cars()
+    {
+        $name = 'My car';
+        CarStore::dispatch($name); 
+        return back()->with('success' , 'Car created');
     }
 }
